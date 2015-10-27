@@ -21,7 +21,7 @@ def main():
 def showSignUp():
     return render_template('signup.html')
 
-@app.route('/signUp',methods=['POST'])
+@app.route('/signUp',methods=['POST', 'GET'])
 def signUp():
     try:
       # read the posted values from the UI
