@@ -64,7 +64,7 @@
 			type : 'POST',
             data: {offset: _offset},
 			success: function(res){
-                var  itemsPerPage = 2
+                var  itemsPerPage = 5
                 var wishObj = JSON.parse(res);
                 $('#ulist').empty();
                 $('#listTemplate').tmpl(wishObj[0]).appendTo('#ulist');
