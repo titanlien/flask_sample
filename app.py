@@ -336,5 +336,9 @@ def addUpdateLike():
         cursor.close()
         conn.close()
 
+@app.route('/helloworld')
+def helloworld():
+    return json.dumps({"status":"hello titan"})
+
 if __name__ == "__main__":
     app.run()
