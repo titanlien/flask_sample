@@ -1,0 +1,5 @@
+web:
+  restart: always
+  build: ./app
+  ports:
+      - 5000 
