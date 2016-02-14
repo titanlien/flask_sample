@@ -2,4 +2,25 @@ web:
   restart: always
   build: ./app
   ports:
-      - 5000 
+      - 5000:5000
+  links: 
+    - mysql:mysql
+
+mysql:
+  image: mysql:5.7.10
+  environment:
+      - MYSQL_ROOT_PASSWORD=sql
+      - MYSQL_DATABASE=BucketList
+  volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+  volumes_from: 
+      - dbstore
+  expose: 
+      - "3306"
+  ports:
+      - 3306:3306
+
+dbstore:
+  image: busybox
+  volumes:
+      - /var/lib/mysql 

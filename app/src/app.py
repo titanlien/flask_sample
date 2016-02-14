@@ -8,10 +8,12 @@ app = Flask(__name__)
 mysql = MySQL()
 
 # MySQL configurations
+docker_ip = '192.168.64.3'
+localhost  = '127.0.0.1'
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'sql'
 app.config['MYSQL_DATABASE_DB'] = 'BucketList'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_HOST'] = docker_ip
 mysql.init_app(app)
 app.secret_key = 'thiskeyissosecret'
 pageLimit = 5
