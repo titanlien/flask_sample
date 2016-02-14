@@ -8,4 +8,5 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r /tmp/requirements
 
 EXPOSE 5000
 COPY src /app
-CMD uwsgi --ini /app/wsgi.ini
+WORKDIR /app
+CMD uwsgi --ini wsgi.ini
