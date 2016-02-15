@@ -1,6 +1,6 @@
 web:
   restart: always
-  build: ./app
+  image: titanlien/flask_web
   expose:
     - "5000"
   links: 
@@ -10,7 +10,7 @@ web:
 
 nginx:
   restart: always
-  build: ./nginx/
+  image: titanlien/flask_nginx
   ports:
     - "80:80"
     - "443:443"
