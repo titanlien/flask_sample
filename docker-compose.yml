@@ -1,26 +1,41 @@
 web:
   restart: always
   build: ./app
-  ports:
-      - 5000:5000
+  expose:
+    - "5000"
   links: 
     - mysql:mysql
+  ports:
+    - "5000"
+  volumes:
+    - /app/static
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes_from:
+    - web
+  links:
+    - web:web
 
 mysql:
   image: mysql:5.7.10
   environment:
-      - MYSQL_ROOT_PASSWORD=sql
-      - MYSQL_DATABASE=BucketList
+    - MYSQL_ROOT_PASSWORD=sql
+    - MYSQL_DATABASE=BucketList
   volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
+    - ./mysql:/docker-entrypoint-initdb.d
   volumes_from: 
-      - dbstore
+    - dbstore
   expose: 
-      - "3306"
+    - "3306"
   ports:
-      - 3306:3306
+    - 3306:3306
 
 dbstore:
   image: busybox
   volumes:
-      - /var/lib/mysql 
+    - /var/lib/mysql 
