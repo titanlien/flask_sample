@@ -16,3 +16,5 @@ $uwsgi --ini wsgi.ini
 ## pack mysql database, BucketList, into docker container
 $mysqldump -u root -p BucketList --routines > BucketList.sql
 $mysql -u root -p -h [192.168.64.3] < mysql-allTables.sql
+
+## [docker swarm](https://blog.codeship.com/docker-machine-compose-and-swarm-how-they-work-together/)
