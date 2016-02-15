@@ -5,8 +5,6 @@ web:
     - "5000"
   links: 
     - mysql:mysql
-  ports:
-    - "5000"
   volumes:
     - /app/static
 
@@ -30,10 +28,8 @@ mysql:
     - ./mysql:/docker-entrypoint-initdb.d
   volumes_from: 
     - dbstore
-  expose: 
+  expose:
     - "3306"
-  ports:
-    - 3306:3306
 
 dbstore:
   image: busybox
