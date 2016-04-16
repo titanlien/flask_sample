@@ -26,6 +26,10 @@ $docker run --rm swarm create -> [SWARM_TOKEN]
 $docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery token://[SWARM_TOCKEN] manager
 ### launch a client node in local
 $docker-machine create -d virtualbox --swarm --swarm-discovery token://[SWARM_TOCKEN] node-01
+### export swarm manager environment
+$eval $(docker-machine env --swarm manager)
+### verify the swarm setting
+$docker info
 
 ## screenshot
 ![interlock with swarm](/screenshot/interlock_swarm.png "interlock_swarm")
