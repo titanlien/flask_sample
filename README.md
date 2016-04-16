@@ -18,3 +18,10 @@ $mysqldump -u root -p BucketList --routines > BucketList.sql
 $mysql -u root -p -h [192.168.64.3] < mysql-allTables.sql
 
 ## [docker swarm](https://blog.codeship.com/docker-machine-compose-and-swarm-how-they-work-together/)
+
+### generate swarm token
+$docker run --rm swarm create -> [SWARM_TOKEN]
+### launch a manager node in local
+$docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery token://[SWARM_TOCKEN] manager
+### launch a client node in local
+$docker-machine create -d virtualbox --swarm --swarm-discovery token://[SWARM_TOCKEN]node-01
