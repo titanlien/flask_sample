@@ -1,6 +1,6 @@
 # use docker-compose to manage these three containers, nginx, flask and mysql.
 import interlock plugin to configure the procxy in nginx.
-e.g [screenshot][screenshot]
+e.g screenshot
 
 ## run docker compose with daemon
 $ docker-compose up -d nginx
