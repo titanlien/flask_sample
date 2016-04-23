@@ -55,3 +55,4 @@ $docker-machine create -d google -google-project flask-titan --google-zone us-ce
 ### google cloud
 ![google swarm & consul](/screenshot/googlo-swarm-consul.png "gcloud + swarm + kvs")
 ### compose (2.0) + interlock + flask + consul + gcloud
+[![compose (2.0) + interlock + flask + consul + gcloud](http://img.youtube.com/vi/5RmyhL7dlis/0.jpg)](https://www.youtube.com/watch?v=5RmyhL7dlis)
