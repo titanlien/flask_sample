@@ -32,10 +32,16 @@ $docker info
 ### launch google cloud container 
 #### watch out, you should modify the /etc/systemd/system/docker.service like below setting
 ExecStart=/usr/bin/docker daemon -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --storage-driver aufs --tlsverify --tlscacert /etc/docker/ca.pem --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label provider=google
+#### kvs -> consul
+$docker-machine create --driver google --google-project flask-titan --google-zone us-central1-a --google-machine-type f1-micro flask-kvs
+
+$docker $(docker-machine config flask-kvs) run -d -p "8500:8500" -h "consul" progrium/consul -server -bootstrap
+
 #### manager
-$docker-machine create -d google -google-project flask-titan --google-zone us-central1-a --google-machine-type f1-micro --google-tags manager --swarm --swarm-master --swarm-discovery token://$SWARM_CLUSTER_TOCKEN g-manager
+$docker-machine create -d google -google-project flask-titan --google-zone us-central1-a --google-machine-type f1-micro --google-tags manager --swarm --swarm-master --swarm-discovery="consul://$(docker-machine ip flask-kvs):8500" --engine-opt="cluster-store=consul://$(docker-machine ip flask-kvs):8500" --engine-opt="cluster-advertise=eth0:2376" g-manager
+
 #### node, [HINT] you could use first node's snapshot to create the other nodes' disk.
-$docker-machine create -d google -google-project flask-titan --google-zone us-central1-a --google-machine-type f1-micro --google-tags node --swarm --swarm-discovery token://$SWARM_CLUSTER_TOCKEN g-node-01
+$docker-machine create -d google -google-project flask-titan --google-zone us-central1-a --google-machine-type f1-micro --google-tags node --swarm --swarm-discovery="consul://$(docker-machine ip flask-kvs):8500" --engine-opt="cluster-store=consul://$(docker-machine ip flask-kvs):8500" --engine-opt="cluster-advertise=eth0:2376" g-node-01
 
 ### reference
 #### [Flask example](http://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972)
@@ -44,4 +50,8 @@ $docker-machine create -d google -google-project flask-titan --google-zone us-ce
 
 
 ## screenshot
+### local virtualbox
 ![interlock with swarm](/screenshot/interlock_swarm.png "interlock_swarm")
+### google cloud
+![google swarm & consul](/screenshot/googlo-swarm-consul.png "gcloud + swarm + kvs")
+### compose (2.0) + interlock + flask + consul + gcloud
